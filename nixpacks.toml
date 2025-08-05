@@ -1,0 +1,8 @@
+[phases.setup]
+aptPkgs = ["php", "php-mysql", "php-mbstring", "php-xml", "php-curl", "php-bcmath", "php-zip"]
+
+[phases.build]
+cmds = ["composer install --no-dev --optimize-autoloader"]
+
+[phases.start]
+cmd = "php artisan serve --host=0.0.0.0 --port=8000"
