@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('user_id');
             $table->string('menu_id');
-            $table->string('stars');
+            $table->unsignedInteger('stars');
             $table->timestamps();
         });
     }

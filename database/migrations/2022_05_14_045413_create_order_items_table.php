@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('order_items', function (Blueprint $table) {
             $table->id();
-            $table->string('order_id');
+            $table->unsignedBigInteger('order_id');
             $table->string('menu_id');
             $table->string('qty');
             $table->string('price');
-            $table->string('status');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }
