@@ -76,7 +76,7 @@ return [
             'prefix_indexes' => true,
             'schema' => 'public',
             'sslmode' => 'prefer',
-            'search_path' => env('DB_SCHEMA', 'public'), // Tambahkan baris ini
+            'search_path' => env('DB_SCHEMA', 'public'),
         ],
         
         'sqlsrv' => [
