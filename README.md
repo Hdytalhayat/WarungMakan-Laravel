@@ -115,3 +115,17 @@ WarungMakan adalah aplikasi web pemesanan makanan/minuman secara online berbasis
 - Upload menu/kategori disimpan di `public/assets/uploads/...`.
 - Chatbot mencocokkan input pengguna dengan kolom `queries` menggunakan LIKE.
 - Model 3D menu di-upload dengan ekstensi file model (mis. `.glb`/`.gltf`).
+
+## Deploy ke Vercel (Catatan)
+
+Konfigurasi Vercel sudah tersedia (`vercel.json`, `api/index.php`, `api/php.ini`). Namun ada beberapa hal yang perlu disiapkan manual:
+
+1. Database eksternal (PostgreSQL, mis. Neon/Vercel Postgres) — set env di Vercel:
+   - `DB_CONNECTION=pgsql`
+   - `DB_HOST`, `DB_PORT`, `DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`
+2. `APP_KEY` (generate dengan `php artisan key:generate --show` dan set di env Vercel)
+3. Jalankan migrasi & seeder ke database produksi secara manual:
+   `php artisan migrate --force --seed`
+4. `APP_DEBUG=false` (sudah di-set di `vercel.json`).
+5. Upload file (gambar/model 3D) disimpan ke filesystem lokal server yang read-only di Vercel — untuk produksi gunakan storage eksternal (S3) agar persisten.
+6. Pastikan `vendor` di-build oleh Vercel (composer install otomatis oleh runtime `vercel-php`).
