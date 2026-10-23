@@ -57,13 +57,13 @@
                             <div class="col-md-12">
                                 <label for="">Image</label><br>
                                 @if($menu->image)
-                                <img class="cate-img" src="{{ asset('assets/uploads/menu/'.$menu->image)}}" alt="menu Image">
+                                <img class="cate-img" src="{{ Str::startsWith($menu->image, 'data:') ? $menu->image : asset('assets/uploads/menu/'.$menu->image)}}" alt="menu Image">
                                 @endif
                             </div>
                             <div class="col-md-12">
                                 <label for="">Model 3D</label><br>
                                 @if($menu->model)
-                                <model-viewer camera-controls touch-action="pan-y" src="{{asset('assets/uploads/model/'.$menu->model)}}" alt=""></model-viewer>
+                                <model-viewer camera-controls touch-action="pan-y" src="{{Str::startsWith($menu->model, 'data:') ? $menu->model : asset('assets/uploads/model/'.$menu->model)}}" alt=""></model-viewer>
                                 @endif
                             </div>
                             <div class="col-md-12">

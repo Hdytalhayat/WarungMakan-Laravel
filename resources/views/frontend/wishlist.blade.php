@@ -25,7 +25,7 @@
                     <div class="card-body menu_data">
                         <div class="row ">
                             <div class="col-md-2 my-auto">
-                                <img height="70px" width="70px" src="{{ asset('assets/uploads/menu/'.$item->menu->image) }}" alt="">
+                                <img height="70px" width="70px" src="{{ Str::startsWith($item->menu->image, 'data:') ? $item->menu->image : asset('assets/uploads/menu/'.$item->menu->image) }}" alt="">
                             </div>
                             <div class="col-md-2 my-auto">
                                 <h6>{{ $item->menu->name }}</h6>

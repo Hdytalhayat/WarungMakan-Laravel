@@ -30,7 +30,7 @@
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->description }}</td>
                                 <td>
-                                    <img class="cate-img" src="{{ asset('assets/uploads/categories/'.$item->image) }}" alt="image here..">    
+                                    <img class="cate-img" src="{{ Str::startsWith($item->image, 'data:') ? $item->image : asset('assets/uploads/categories/'.$item->image) }}" alt="image here..">    
                                 </td>
                                 <td>
                                     <a href="{{ url('edit-categories/'.$item->id) }}" class="btn btn-primary">Edit</a>

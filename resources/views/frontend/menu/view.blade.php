@@ -65,7 +65,7 @@
             <div class="card-body">
                 <div class="row menu_data">
                     <div class="col-md-4 border-right">
-                        <img src="{{ asset('assets/uploads/menu/'.$menu->image) }}" alt="menu..." class="w-100">
+                        <img src="{{ Str::startsWith($menu->image, 'data:') ? $menu->image : asset('assets/uploads/menu/'.$menu->image) }}" alt="menu..." class="w-100">
                     </div>
                     <div class="col-md-8">
                         <h2 class="mb-0">

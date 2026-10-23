@@ -51,7 +51,7 @@
                             <div class="item">
                                 <a href="{{ url('view-categories/'.$item->slug) }}">
                                 <div class="card">
-                                    <img src="{{ asset('assets/uploads/categories/'.$item->image) }}" alt="">
+                                    <img src="{{ Str::startsWith($item->image, 'data:') ? $item->image : asset('assets/uploads/categories/'.$item->image) }}" alt="">
                                     
                                 </div>
                                 </a>
@@ -71,7 +71,7 @@
                             <div class="item">
                                 <a href="{{ url('view-categories/'.$item->Categories->slug.'/'.$item->slug) }}">
                                 <div class="card">
-                                    <img src="{{ asset('assets/uploads/menu/'.$item->image) }}" alt="">
+                                    <img src="{{ Str::startsWith($item->image, 'data:') ? $item->image : asset('assets/uploads/menu/'.$item->image) }}" alt="">
                                     <div class="card-body">
                                         <h5>{{ $item->name }}</h5>
                                         @if ($item->menu_price == NULL)

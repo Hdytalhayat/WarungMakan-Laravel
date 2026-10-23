@@ -39,7 +39,7 @@
                             </div>
                             <div class="col-md-12">
                                 @if($categories->image)
-                                    <img src="{{ asset('assets/uploads/categories/'.$categories->image)}}" alt="Categories Image">
+                                    <img src="{{ Str::startsWith($categories->image, 'data:') ? $categories->image : asset('assets/uploads/categories/'.$categories->image)}}" alt="Categories Image">
                                 @endif
                                 <input type="file" name="image" class="form-control">
                             </div>

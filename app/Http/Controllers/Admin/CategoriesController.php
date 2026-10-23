@@ -22,10 +22,9 @@ class CategoriesController extends Controller
         $categories = new Categories();
         if($request->hasFile('image')){
             $file = $request->file('image');
-            $ext = $file->getClientOriginalExtension();
-            $filename = time().'.'.$ext;
-            $file->move('assets/uploads/categories/',$filename);
-            $categories->image = $filename;
+            $mime = $file->getMimeType();
+            $data = base64_encode(file_get_contents($file->getRealPath()));
+            $categories->image = 'data:'.$mime.';base64,'.$data;
         }
         $categories->name = $request->input('name');
         $categories->slug = $request->input('slug');
@@ -46,15 +45,10 @@ class CategoriesController extends Controller
     public function update(Request $request, $id){
         $categories = Categories::find($id);
         if($request->hasFile('image')){
-            $path = 'assets/uploads/categories/'.$categories->image;
-            if(File::exists($path)){
-                File::delete($path);
-            }
             $file = $request->file('image');
-            $ext = $file->getClientOriginalExtension();
-            $filename = time().'.'.$ext;
-            $file->move('assets/uploads/categories/',$filename);
-            $categories->image = $filename;
+            $mime = $file->getMimeType();
+            $data = base64_encode(file_get_contents($file->getRealPath()));
+            $categories->image = 'data:'.$mime.';base64,'.$data;
         }
         $categories->name = $request->input('name');
         $categories->slug = $request->input('slug');
@@ -70,10 +64,7 @@ class CategoriesController extends Controller
 
     public function destroy($id){
         $categories = Categories::find($id);
-        $path = 'assets/uploads/categories/'.$categories->image;
-        //if(File::exists($path)){
-            File::delete($path);
-        //}
+        // image disimpan sebagai base64 di database, tidak ada file fisik yang dihapus
         $categories->delete();
         return redirect('/categories')->with('status', 'Categories Deleted Succesfully');
     }

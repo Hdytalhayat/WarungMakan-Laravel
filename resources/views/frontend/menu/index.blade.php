@@ -18,7 +18,7 @@
                             <div class="col-md-3 mb-3">
                                 <div class="card">
                                     <a href="{{ url('view-categories/'.$categories->slug.'/'.$item->slug) }}">
-                                        <img src="{{ asset('assets/uploads/menu/'.$item->image) }}" class="w-100" alt="menu..">
+                                        <img src="{{ Str::startsWith($item->image, 'data:') ? $item->image : asset('assets/uploads/menu/'.$item->image) }}" class="w-100" alt="menu..">
                                         <div class="card-body">
                                             <h5>{{ $item->name }}</h5>
                                             @if ($item->menu_price == NULL)

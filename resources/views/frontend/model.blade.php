@@ -24,7 +24,7 @@
                             <div class="col">
                                 {{-- <img src="{{ asset('assets/uploads/qr/'.$menu->model) }}" alt=""> --}}
                                 
-                                <model-viewer camera-controls touch-action="pan-y" src="{{asset('assets/uploads/model/'.$menu->model)}}" alt=""></model-viewer>
+                                <model-viewer camera-controls touch-action="pan-y" src="{{Str::startsWith($menu->model, 'data:') ? $menu->model : asset('assets/uploads/model/'.$menu->model)}}" alt=""></model-viewer>
                             </div>
                         </div>
                     </div>

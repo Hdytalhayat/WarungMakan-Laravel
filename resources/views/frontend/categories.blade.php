@@ -14,7 +14,7 @@
                         <div class="col-md-3 mt-3">
                             <a href="{{ url('view-categories/'.$item->slug) }}">
                                 <div class="card">
-                                    <img src="{{ asset('assets/uploads/categories/'.$item->image) }}" alt="">
+                                    <img src="{{ Str::startsWith($item->image, 'data:') ? $item->image : asset('assets/uploads/categories/'.$item->image) }}" alt="">
                                     <div class="card-body">
                                         <h5>{{ $item->name }}</h5>
                                         <p>

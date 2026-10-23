@@ -41,7 +41,7 @@
                                                 <td>{{ $item->qty }}</td>
                                                 <td>Rp.{{ $item->price }}</td>
                                                 <td>
-                                                    <img src="{{ asset('assets/uploads/menu/'.$item->menu->image) }}" width="50px" alt="Sevice image..">
+                                                    <img src="{{ Str::startsWith($item->menu->image, 'data:') ? $item->menu->image : asset('assets/uploads/menu/'.$item->menu->image) }}" width="50px" alt="Sevice image..">
                                                 </td>
                                             </tr>
                                         @endforeach

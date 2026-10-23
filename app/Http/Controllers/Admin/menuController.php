@@ -24,17 +24,15 @@ class menuController extends Controller
         $menu = new menu();
         if($request->hasFile('image')){
             $file = $request->file('image');
-            $ext = $file->getClientOriginalExtension();
-            $filename = time().'.'.$ext;
-            $file->move('assets/uploads/menu/',$filename);
-            $menu->image = $filename;
+            $mime = $file->getMimeType();
+            $data = base64_encode(file_get_contents($file->getRealPath()));
+            $menu->image = 'data:'.$mime.';base64,'.$data;
         }
         if($request->hasFile('model')){
             $model = $request->file('model');
-            $extmodel = $model->getClientOriginalExtension();
-            $filenamemodel = time().'.'.$extmodel;
-            $model->move('assets/uploads/model/',$filenamemodel);
-            $menu->model = $filenamemodel;
+            $mime = $model->getMimeType();
+            $data = base64_encode(file_get_contents($model->getRealPath()));
+            $menu->model = 'data:'.$mime.';base64,'.$data;
         }
         $menu->cate_id = $request->input('cate_id');
         $menu->name = $request->input('name');
@@ -64,17 +62,15 @@ class menuController extends Controller
         $menu = menu::find($id);
         if($request->hasFile('image')){
             $file = $request->file('image');
-            $ext = $file->getClientOriginalExtension();
-            $filename = time().'.'.$ext;
-            $file->move('assets/uploads/menu/',$filename);
-            $menu->image = $filename;
+            $mime = $file->getMimeType();
+            $data = base64_encode(file_get_contents($file->getRealPath()));
+            $menu->image = 'data:'.$mime.';base64,'.$data;
         }
         if($request->hasFile('model')){
             $model = $request->file('model');
-            $extmodel = $model->getClientOriginalExtension();
-            $filenamemodel = time().'.'.$extmodel;
-            $model->move('assets/uploads/model/',$filenamemodel);
-            $menu->model = $filenamemodel;
+            $mime = $model->getMimeType();
+            $data = base64_encode(file_get_contents($model->getRealPath()));
+            $menu->model = 'data:'.$mime.';base64,'.$data;
         }
 
         $menu->name = $request->input('name');
@@ -96,12 +92,7 @@ class menuController extends Controller
     }
     public function destroy($id){
         $menu = menu::find($id);
-        $path = 'assets/uploads/menu/'.$menu->image;
-        $pathmodel = 'assets/uploads/model/'.$menu->model;
-        //if(File::exists($path)){
-            File::delete($path);
-            File::delete($pathmodel);
-        //}
+        // image/model disimpan sebagai base64 di database, tidak ada file fisik yang dihapus
         $menu->delete();
         return redirect('/menu')->with('status', 'menu Deleted Succesfully');
     }
