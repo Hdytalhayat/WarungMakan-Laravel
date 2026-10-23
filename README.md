@@ -1,66 +1,117 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# WarungMakan
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+WarungMakan adalah aplikasi web pemesanan makanan/minuman secara online berbasis **Laravel 10**. Pengguna dapat menjelajahi menu, menambahkan ke keranjang/wishlist, melakukan checkout dan pemesanan, memberikan rating & ulasan, serta berinteraksi dengan chatbot. Admin dapat mengelola kategori, menu (termasuk model 3D), pesanan, pengguna, dan chatbot.
 
-## About Laravel
+## Fitur
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Customer
+- Beranda, halaman About, daftar kategori & menu
+- Pencarian menu
+- Keranjang belanja (tambah, ubah jumlah, hapus)
+- Wishlist
+- Checkout & pemesanan (order tracking)
+- Rating & ulasan menu (verified purchase)
+- Chatbot (Q&A berbasis database)
+- Profil pengguna & riwayat pesanan
+- Tampilan model 3D menu (model-viewer)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Admin (role `admin`)
+- Dashboard (statistik pesanan pending/completed, menu, kategori, user, rating)
+- CRUD Kategori (dengan upload gambar)
+- CRUD Menu (dengan upload gambar & model 3D)
+- Manajemen Pesanan (pending/completed, update status, riwayat)
+- Manajemen Pengguna (daftar & detail)
+- CRUD Chatbot (queries/replies)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Autentikasi
+- Login, register, verifikasi email, reset password
+- Two-factor authentication (Fortify)
+- Role-based access (`role_as`: 1 = admin, 0 = user)
 
-## Learning Laravel
+## Teknologi
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- PHP ^8.1
+- Laravel 10
+- Laravel Fortify, Sanctum, Laravel UI
+- MySQL/PostgreSQL
+- Blade, Bootstrap, Material Dashboard, jQuery, Owl Carousel, Tiny Slider, model-viewer
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Menjalankan di Lokal
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Prasyarat
+- PHP >= 8.1 dengan ekstensi: pdo, pdo_mysql (atau pdo_pgsql), mbstring, xml, curl, bcmath, zip
+- Composer
+- Node.js & npm (opsional, untuk asset frontend)
+- MySQL/PostgreSQL
 
-## Laravel Sponsors
+### Langkah
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+1. Clone repository:
+   ```bash
+   git clone https://github.com/Hdytalhayat/WarungMakan-Laravel.git
+   cd WarungMakan-Laravel
+   ```
 
-### Premium Partners
+2. Install dependensi PHP:
+   ```bash
+   composer install
+   ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+3. Salin file environment dan generate app key:
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-## Contributing
+4. Atur koneksi database di `.env`:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=warungmakan
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+5. Jalankan migrasi & seeder:
+   ```bash
+   php artisan migrate --seed
+   ```
 
-## Code of Conduct
+6. (Opsional) Link storage untuk file upload:
+   ```bash
+   php artisan storage:link
+   ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+7. (Opsional) Build asset frontend:
+   ```bash
+   npm install
+   npm run build
+   ```
 
-## Security Vulnerabilities
+8. Jalankan server development:
+   ```bash
+   php artisan serve
+   ```
+   Akses di `http://127.0.0.1:8000`.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Akun Admin (dari seeder)
+- Email: `admin@example.com`
+- Password: `password123`
 
-## License
+> Segera ganti password default setelah login pertama kali.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Struktur Direktori Singkat
+
+- `app/Http/Controllers/Admin` — controller panel admin
+- `app/Http/Controllers/frontend` — controller sisi customer
+- `app/Models` — model Eloquent
+- `database/migrations` — skema database
+- `resources/views` — template Blade
+- `public` — asset statis (css, js, gambar, upload)
+
+## Catatan
+
+- Upload menu/kategori disimpan di `public/assets/uploads/...`.
+- Chatbot mencocokkan input pengguna dengan kolom `queries` menggunakan LIKE.
+- Model 3D menu di-upload dengan ekstensi file model (mis. `.glb`/`.gltf`).
