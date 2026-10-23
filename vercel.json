@@ -42,5 +42,6 @@
         "LOG_CHANNEL": "stderr",
         "SESSION_DRIVER": "cookie"
     },
+    "buildCommand": "npm install && npm run build",
     "outputDirectory": "public"
 }
