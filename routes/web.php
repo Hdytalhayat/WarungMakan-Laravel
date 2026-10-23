@@ -79,8 +79,6 @@ Route::middleware( ['auth','isAdmin', 'verified'])->group(function () {
     route::get('delete-menu/{id}', [menuController::class, 'destroy']);
     route::put('update-menu/{id}', [menuController::class, 'update']);
 
-    route::get('users-list', [FrontController::class, 'users']);
-
     route::get('orders-list', [OrdersController::class, 'index']);
     route::get('admin/view-order/{id}', [OrdersController::class, 'view']);
     route::put('update-order/{id}', [OrdersController::class, 'update']);
